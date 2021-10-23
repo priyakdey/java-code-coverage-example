@@ -4,3 +4,43 @@
  * This is a general purpose Gradle build.
  * Learn more about Gradle by exploring our samples at https://docs.gradle.org/7.1.1/samples
  */
+plugins {
+    id("org.springframework.boot") version "2.5.6"
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    java
+    id("org.sonarqube") version "3.3"
+}
+
+group = "com.priyakdey"
+version = "0.0.1-SNAPSHOT"
+java.sourceCompatibility = JavaVersion.VERSION_16
+java.targetCompatibility = JavaVersion.VERSION_16
+
+configurations {
+    compileOnly {
+        extendsFrom(configurations.annotationProcessor.get())
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web")
+
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
+sonarqube {
+    properties {
+        property("sonar.projectKey", "priyakdey:java-code-coverage-example")
+    }
+}
