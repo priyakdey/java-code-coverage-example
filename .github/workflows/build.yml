@@ -20,7 +20,7 @@ jobs:
         with:
           java-version: '16.0.2'
           distribution: 'zulu'
-          cache: .gradle
+          cache: gradle
       - name: Cache SonarQube packages
         uses: actions/cache@v1
         with:
